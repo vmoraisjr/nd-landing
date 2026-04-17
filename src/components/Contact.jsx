@@ -24,6 +24,21 @@ function validateForm({ nome, email, telefone }) {
   return "";
 }
 
+async function readResponseMessage(response) {
+  const rawBody = await response.text();
+
+  if (!rawBody) {
+    return "";
+  }
+
+  try {
+    const data = JSON.parse(rawBody);
+    return typeof data.message === "string" ? data.message : "";
+  } catch {
+    return "";
+  }
+}
+
 export default function Contact() {
   const [form, setForm] = useState(initialForm);
   const [status, setStatus] = useState({ type: "", message: "" });
@@ -62,10 +77,12 @@ export default function Contact() {
         }),
       });
 
-      const data = await response.json();
+      const responseMessage = await readResponseMessage(response);
 
       if (!response.ok) {
-        throw new Error(data.message || "Nao foi possivel enviar sua mensagem.");
+        throw new Error(
+          responseMessage || "Nao foi possivel enviar sua mensagem.",
+        );
       }
 
       setForm(initialForm);
@@ -75,12 +92,19 @@ export default function Contact() {
           "Mensagem enviada. Vamos entrar em contato em breve e voce recebera um email de confirmacao.",
       });
     } catch (error) {
+      const isConnectionError =
+        error instanceof TypeError ||
+        (error instanceof Error &&
+          /Failed to fetch|NetworkError|fetch/i.test(error.message));
+
       setStatus({
         type: "error",
         message:
-          error instanceof Error
-            ? error.message
-            : "Nao foi possivel enviar sua mensagem.",
+          isConnectionError
+            ? "O servidor de contato nao esta respondendo agora. Verifique se o backend de email esta em execucao."
+            : error instanceof Error
+              ? error.message
+              : "Nao foi possivel enviar sua mensagem.",
       });
     } finally {
       setIsSubmitting(false);
@@ -283,7 +307,11 @@ export default function Contact() {
                   onChange={handleChange}
                 />
 
-                <button className="cta__button" disabled={isSubmitting} type="submit">
+                <button
+                  className="cta__button"
+                  disabled={isSubmitting}
+                  type="submit"
+                >
                   {isSubmitting
                     ? "Enviando..."
                     : "Quero falar com um especialista"}
@@ -327,7 +355,7 @@ export default function Contact() {
                 <div>
                   <strong>WhatsApp</strong>
                   <br />
-                  (13) 99999-9999
+                  (13) 98208-1909
                 </div>
               </div>
 
@@ -382,7 +410,7 @@ export default function Contact() {
                 <div>
                   <strong>Instagram</strong>
                   <br />
-                  @nortexdigital
+                  @agencianortex
                 </div>
               </div>
             </div>

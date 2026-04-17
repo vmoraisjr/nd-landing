@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:all": "concurrently \"npm run dev\" \"npm run dev:server\"",
+    "dev:all": "node scripts/dev-all.mjs",
     "dev:server": "node server.js",
     "build": "vite build",
     "lint": "eslint .",

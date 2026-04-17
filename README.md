@@ -11,6 +11,29 @@ O ambiente vai subir:
 - frontend Vite em `http://localhost:5173`
 - API/backend de email em `http://localhost:8787`
 
+## Exemplo com Locaweb
+
+Se voce usa uma caixa postal da Locaweb, normalmente funciona assim:
+
+```env
+PORT=8787
+CONTACT_TO=contato@nortexdigital.com.br
+SMTP_HOST=smtp.seudominio.com.br
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_REQUIRE_TLS=true
+SMTP_USER=seu-email@seudominio.com.br
+SMTP_PASS=sua-senha
+SMTP_FROM=seu-email@seudominio.com.br
+SMTP_FROM_NAME=Nortex Digital
+```
+
+Observacoes:
+
+- se `smtp.seudominio.com.br` nao responder, teste `smtp.locaweb.com.br`
+- para a Locaweb via porta `587`, o padrao costuma ser `STARTTLS`, por isso `SMTP_REQUIRE_TLS=true`
+- se voce usa o produto separado `SMTP Locaweb` para disparos, o host e a autenticacao podem ser diferentes do email comum
+
 ## Fluxo do formulario
 
 Quando o visitante envia o formulario:

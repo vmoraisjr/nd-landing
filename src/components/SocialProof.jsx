@@ -103,8 +103,8 @@ export default function Results() {
           <div className="results__grid">
             <div className="results__card">
               <div>
-                <span className="results__number">+200</span>
-                <span className="results__highlight">clientes atendidos</span>
+                <span className="results__number">+50</span>
+                <span className="results__highlight">parcerias positivas</span>
               </div>
               <p>
                 Empresas estruturando crescimento com processo e tecnologia.

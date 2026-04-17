@@ -187,7 +187,7 @@ export default function Navbar() {
       <header className="navbar">
         <div className="navbar__container">
           <a className="navbar__logo" href="#inicio" onClick={() => setOpen(false)}>
-            <img src="/logo.png" alt="Nortex Digital" />
+            <img src="/logo_nortex_sem_fundo.png" alt="Nortex Digital" />
             <span className="navbar__brand">Nortex Digital</span>
           </a>
 

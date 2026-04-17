@@ -1,17 +1,5 @@
 import "dotenv/config";
-import express from "express";
 import nodemailer from "nodemailer";
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
-
-const app = express();
-const port = Number(process.env.PORT || 8787);
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const distDir = path.join(__dirname, "dist");
-
-app.use(express.json());
 
 function normalizeValue(value) {
   return typeof value === "string" ? value.trim() : "";
@@ -77,7 +65,12 @@ function createTransporter() {
   });
 }
 
-app.post("/api/contact", async (req, res) => {
+export default async function handler(req, res) {
+  if (req.method !== "POST") {
+    res.setHeader("Allow", "POST");
+    return res.status(405).json({ message: "Metodo nao permitido." });
+  }
+
   const validation = validatePayload(req.body);
   if (!validation.ok) {
     return res.status(400).json({ message: validation.message });
@@ -119,7 +112,7 @@ app.post("/api/contact", async (req, res) => {
         `Ola, ${nome}.`,
         "",
         "Recebemos sua mensagem e entraremos em contato em breve.",
-        "Se preferir, voce tambem pode falar com a gente em contato@nortexdigital.com.br.",
+        "Se preferir, voce tambem pode falar com a gente no whatsapp 13 98208-1909.",
         "",
         "Resumo enviado:",
         `Nome: ${nome}`,
@@ -130,8 +123,8 @@ app.post("/api/contact", async (req, res) => {
         <p>Ola, ${nome}.</p>
         <p>Recebemos sua mensagem e entraremos em contato em breve.</p>
         <p>
-          Se preferir, voce tambem pode falar com a gente em
-          <strong> contato@nortexdigital.com.br</strong>.
+          Se preferir, voce tambem pode falar com a gente no 
+          <strong> whatsapp 13 98208-1909</strong>.
         </p>
         <p><strong>Resumo enviado:</strong></p>
         <p>Nome: ${nome}<br />Telefone: ${telefone}<br />Email: ${email}</p>
@@ -145,16 +138,4 @@ app.post("/api/contact", async (req, res) => {
       .status(500)
       .json({ message: "Nao foi possivel enviar o formulario agora." });
   }
-});
-
-if (fs.existsSync(distDir)) {
-  app.use(express.static(distDir));
-
-  app.get(/^(?!\/api).*/, (_req, res) => {
-    res.sendFile(path.join(distDir, "index.html"));
-  });
 }
-
-app.listen(port, () => {
-  console.log(`Server listening on http://localhost:${port}`);
-});
