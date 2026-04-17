@@ -26,7 +26,7 @@ function App() {
         </div>
 
         <a
-          href="https://wa.me/55139820819093?text=Ol%C3%A1,%20vim%20pela%20landing%20e%20quero%20entender%20como%20aumentar%20meu%20faturamento"
+          href="https://wa.me/5513982081909?text=Ol%C3%A1,%20vim%20pela%20landing%20e%20quero%20entender%20como%20aumentar%20meu%20faturamento"
           target="_blank"
           rel="noopener noreferrer"
           className="whatsapp-button"
