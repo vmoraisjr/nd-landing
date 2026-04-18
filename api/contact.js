@@ -1,17 +1,8 @@
 import "dotenv/config";
-import nodemailer from "nodemailer";
+import { createTransporter } from "../smtp.js";
 
 function normalizeValue(value) {
   return typeof value === "string" ? value.trim() : "";
-}
-
-function readBooleanEnv(name, fallback = false) {
-  const value = process.env[name];
-  if (value == null) {
-    return fallback;
-  }
-
-  return String(value).trim().toLowerCase() === "true";
 }
 
 function validatePayload(payload) {
@@ -37,32 +28,6 @@ function validatePayload(payload) {
     ok: true,
     data: { nome, email, telefone },
   };
-}
-
-function createTransporter() {
-  const host = process.env.SMTP_HOST;
-  const smtpPort = Number(process.env.SMTP_PORT || 587);
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASS;
-  const secure = readBooleanEnv("SMTP_SECURE", false);
-  const requireTLS = readBooleanEnv("SMTP_REQUIRE_TLS", false);
-
-  if (!host || !user || !pass) {
-    throw new Error(
-      "SMTP_HOST, SMTP_USER e SMTP_PASS precisam estar definidos no ambiente.",
-    );
-  }
-
-  return nodemailer.createTransport({
-    host,
-    port: smtpPort,
-    secure,
-    requireTLS,
-    auth: {
-      user,
-      pass,
-    },
-  });
 }
 
 export default async function handler(req, res) {

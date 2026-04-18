@@ -11,6 +11,23 @@ O ambiente vai subir:
 - frontend Vite em `http://localhost:5173`
 - API/backend de email em `http://localhost:8787`
 
+## Exemplo com SMTP Nortex Digital
+
+Para esta instalação específica, a configuração que funcionou foi:
+
+```env
+PORT=8787
+CONTACT_TO=contato@nortexdigital.com.br
+SMTP_HOST=smtp.email-ssl.com.br
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_REQUIRE_TLS=true
+SMTP_USER=contato@nortexdigital.com.br
+SMTP_PASS=sua-senha
+SMTP_FROM=contato@nortexdigital.com.br
+SMTP_FROM_NAME=Nortex Digital
+```
+
 ## Exemplo com Locaweb
 
 Se voce usa uma caixa postal da Locaweb, normalmente funciona assim:
