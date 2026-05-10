@@ -297,3 +297,20 @@ select.form-control-lg:not([size]):not([multiple]), .input-group-lg > select.for
   display: block;
 }
 
+
+
+.nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 100;
+  width: 100%;
+  min-height: 76px;
+  background: #f8f9fa;
+  border-bottom: 1px solid rgba(31, 41, 51, 0.05);
+  box-shadow: none;
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nav.scrolled {
+  background: #f8f9fa;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.05);
