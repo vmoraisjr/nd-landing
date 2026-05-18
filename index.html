@@ -348,7 +348,7 @@
 
             <div class="contact-form-wrap">
 
-                <form method="POST" id="contact-form" class="contact-form" action="https://formsubmit.co/contato@nortexdigital.com.br">
+                <form method="POST" id="contact-form" class="contact-form" action="https://api.web3forms.com/submit">
 
                     <div class="form-row">
 
@@ -392,6 +392,8 @@
 
                         <input
                             type="text"
+                            name="company"
+                            id="form-company"
                             placeholder="Nome da empresa">
 
                     </div>
@@ -408,11 +410,11 @@
 
                     </div>
 
-                    <input type="hidden" name="_replyto" id="_replyto" value="">
+                    <input type="hidden" name="access_key" id="access-key" value="8a9cfc7e-eca7-4b8b-9f57-1be5e2ed8abf">
+                    <input type="hidden" name="from_name" value="Nortex Digital">
+                    <input type="hidden" name="replyto" id="replyto" value="">
                     <input type="text" name="_honey" style="display:none">
-                    <input type="hidden" name="_subject" value="Novo contato pelo site da Nortex Digital">
-                    <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://nortexdigital.com.br/#contato">
+                    <input type="hidden" name="subject" value="Novo contato pelo site da Nortex Digital">
 
                     <button
                         type="submit"
@@ -421,6 +423,8 @@
                         Solicitar diagnóstico estratégico
 
                     </button>
+
+                    <p id="form-status" style="margin-top:16px; color:#d7e3dd; min-height:24px;"></p>
 
                 </form>
 
@@ -486,17 +490,6 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Custom JS -->
     <script src="assets/js/main.js"></script>
-        <script>
-            (function(){
-                var form = document.getElementById('contact-form');
-                if(!form) return;
-                form.addEventListener('submit', function(){
-                    var email = document.getElementById('form-email');
-                    var reply = document.getElementById('_replyto');
-                    if(email && reply) reply.value = email.value || '';
-                });
-            })();
-        </script>
 </body>
 
 </html>

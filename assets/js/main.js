@@ -70,29 +70,66 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll(); // Executar uma vez no load
 
-    // 4. Form Submission Mockup
-    const contactForm = document.getElementById('contactForm');
+    // 4. Form Submission
+    const contactForm = document.getElementById('contact-form');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const btn = contactForm.querySelector('button[type="submit"]');
-            const originalText = btn.innerText;
-            
-            btn.innerText = 'Enviando...';
-            btn.disabled = true;
+        const email = document.getElementById('form-email');
+        const reply = document.getElementById('replyto');
+        const status = document.getElementById('form-status');
+        const submitButton = contactForm.querySelector('button[type="submit"]');
+        const originalButtonText = submitButton ? submitButton.textContent : '';
 
-            // Simular envio
-            setTimeout(() => {
-                btn.innerText = 'Mensagem Enviada!';
-                btn.classList.replace('btn-primary-green', 'btn-success');
-                contactForm.reset();
-                
-                setTimeout(() => {
-                    btn.innerText = originalText;
-                    btn.classList.replace('btn-success', 'btn-primary-green');
-                    btn.disabled = false;
-                }, 3000);
-            }, 1500);
+        contactForm.addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            if (email && reply) {
+                reply.value = email.value || '';
+            }
+
+            if (status) {
+                status.textContent = 'Enviando...';
+                status.style.color = '#d7e3dd';
+            }
+
+            if (submitButton) {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Enviando...';
+            }
+
+            try {
+                const formData = new FormData(contactForm);
+                const payload = Object.fromEntries(formData.entries());
+                const response = await fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+                const result = await response.json();
+
+                if (response.ok) {
+                    contactForm.reset();
+                    if (status) {
+                        status.textContent = 'Mensagem enviada com sucesso. Em breve entraremos em contato.';
+                        status.style.color = '#6ee7b7';
+                    }
+                } else if (status) {
+                    status.textContent = result.message || 'Nao foi possivel enviar agora. Tente novamente.';
+                    status.style.color = '#fca5a5';
+                }
+            } catch (error) {
+                if (status) {
+                    status.textContent = 'Nao foi possivel enviar agora. Verifique sua conexao e tente novamente.';
+                    status.style.color = '#fca5a5';
+                }
+            } finally {
+                if (submitButton) {
+                    submitButton.disabled = false;
+                    submitButton.textContent = originalButtonText;
+                }
+            }
         });
     }
 });
