@@ -4,10 +4,8 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-    
-    // 1. Navbar Scroll Effect
     const navbar = document.getElementById('mainNav');
-    
+
     window.addEventListener('scroll', () => {
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
@@ -16,24 +14,22 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // 2. Smooth Scroll para links internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 const navHeight = navbar.offsetHeight;
                 const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight;
-                
+
                 window.scrollTo({
                     top: targetPosition,
                     behavior: 'smooth'
                 });
 
-                // Fechar menu mobile se estiver aberto
                 const navbarCollapse = document.getElementById('navbarContent');
                 if (navbarCollapse.classList.contains('show')) {
                     const bsCollapse = new bootstrap.Collapse(navbarCollapse);
@@ -43,12 +39,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // 3. Simple Reveal Animation on Scroll
     const revealElements = document.querySelectorAll('.service-card, .section-padding h2, .section-padding p');
-    
+
     const revealOnScroll = () => {
         const triggerBottom = window.innerHeight * 0.85;
-        
+
         revealElements.forEach(el => {
             const elTop = el.getBoundingClientRect().top;
             if (elTop < triggerBottom) {
@@ -59,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Inicializar estilos para animação
     revealElements.forEach(el => {
         if (!el.classList.contains('fade-in-up')) {
             el.style.opacity = '0';
@@ -68,9 +62,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('scroll', revealOnScroll);
-    revealOnScroll(); // Executar uma vez no load
+    revealOnScroll();
 
-    // 4. Form Submission
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         const email = document.getElementById('form-email');
@@ -99,7 +92,7 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const formData = new FormData(contactForm);
                 const payload = Object.fromEntries(formData.entries());
-                const response = await fetch('https://api.web3forms.com/submit', {
+                const response = await fetch('/api/contact', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -116,12 +109,12 @@ document.addEventListener('DOMContentLoaded', () => {
                         status.style.color = '#6ee7b7';
                     }
                 } else if (status) {
-                    status.textContent = result.message || 'Nao foi possivel enviar agora. Tente novamente.';
+                    status.textContent = result.message || 'Não foi possível enviar agora. Tente novamente.';
                     status.style.color = '#fca5a5';
                 }
             } catch (error) {
                 if (status) {
-                    status.textContent = 'Nao foi possivel enviar agora. Verifique sua conexao e tente novamente.';
+                    status.textContent = 'Não foi possível enviar agora. Verifique sua conexão e tente novamente.';
                     status.style.color = '#fca5a5';
                 }
             } finally {

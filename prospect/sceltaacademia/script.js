@@ -1,67 +1,35 @@
-const nav = document.getElementById('mainNav');
+const unlockButton = document.getElementById('unlock');
+const pinInput = document.getElementById('pin');
+const links = document.getElementById('links');
 
-window.addEventListener('scroll', () => {
-  nav.classList.toggle('scrolled', window.scrollY > 60);
-}, { passive: true });
+const ACCESS_PIN = '0102';
 
-document.querySelectorAll('.chart-fill[data-width]').forEach((fill) => {
-  fill.style.width = `${fill.dataset.width}%`;
-});
+unlockButton.addEventListener('click', () => {
 
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener('click', (event) => {
-    const target = document.querySelector(anchor.getAttribute('href'));
-    if (!target) return;
-    event.preventDefault();
-    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  });
-});
+  const enteredPin = pinInput.value;
 
-window.addEventListener('load', () => {
-  // Barra fill-p: 0 → 100
-  const fp = document.getElementById('fill-p');
+  if(enteredPin === ACCESS_PIN){
 
-  fp.style.height = '0%';
-  fp.style.transition = 'height 3s ease-in-out';
+    links.classList.remove('disabled');
 
-  setTimeout(() => {
-    fp.style.height = '100%';
-  }, 400);
+    unlockButton.innerHTML = 'Acesso liberado';
 
-  // Barra fill-a: 0 → 72 e para
-  const fa = document.getElementById('fill-a');
-  const ca = document.getElementById('counter-a');
+    unlockButton.style.background = '#3f9f31';
 
-  fa.style.height = '0%';
-  fa.style.transition = 'height 3s ease-in-out';
+  } else {
 
-  let current = 0;
-  const target = 70;
+    pinInput.style.borderColor = '#d14b4b';
 
-  const counter = setInterval(() => {
-    current++;
-
-    if (ca) {
-      ca.textContent = current;
-    }
-
-    if (current >= target) {
-      clearInterval(counter);
-    }
-  }, 3000 / target);
-
-  setTimeout(() => {
-    fa.style.height = target + '%';
-  }, 400);
-
-  // Animate bars
-  document.querySelectorAll('.bar-fill').forEach(b => {
-    const w = b.dataset.w;
-
-    b.style.transition = 'width 1.5s cubic-bezier(.4,0,.2,1)';
+    unlockButton.innerHTML = 'PIN inválido';
 
     setTimeout(() => {
-      b.style.width = w + '%';
-    }, 300);
-  });
+
+      unlockButton.innerHTML = 'Liberar acesso';
+
+      pinInput.style.borderColor = '';
+
+    }, 2000);
+
+  }
+
 });
