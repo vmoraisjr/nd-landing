@@ -8,10 +8,8 @@
   <title>Scelta × NorteX Digital</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
-
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="/prospect/sceltaacademia/proposta/style.css">
 
 </head>
 
@@ -21,22 +19,21 @@
 
 <div class="wrapper">
 
-  <!-- HEADER -->
-
   <header class="header">
 
     <div class="brand">
 
       <img
         class="logo-scelta"
-        src="scelta.png"  >
+        src="/prospect/sceltaacademia/proposta/scelta.png"
+        alt="Scelta Academia">
 
       <div class="brand-divider"></div>
 
       <img
         class="logo-nortex"
-        src="../../../assets/img/nortex_logo_original.webp"
-      >
+        src="/assets/img/nortex_logo_original.webp"
+        alt="NorteX Digital">
 
     </div>
 
@@ -44,39 +41,27 @@
       Proposta Executiva
     </div>
 
-    <!-- TOGGLE -->
-
     <button id="theme-toggle" class="theme-switch">
 
-  <span class="mode-label mode-light">
-    Dark
-  </span>
+      <span class="mode-label mode-light">
+        Dark
+      </span>
 
-  <span class="switch-track">
+      <span class="switch-track">
+        <span class="switch-thumb"></span>
+      </span>
 
-    <span class="switch-thumb"></span>
+      <span class="mode-label mode-dark">
+        Light
+      </span>
 
-  </span>
-
-  <span class="mode-label mode-dark">
-    Light
-  </span>
-
-</button>
+    </button>
 
   </header>
 
-  <!-- MAIN -->
-
   <main class="grid">
 
-    <!-- COL 1 -->
-
     <section class="column">
-
-      <!-- <div class="section-number green">
-        01
-      </div> -->
 
       <h1 class="title">
         O que podemos
@@ -127,13 +112,7 @@
 
     </section>
 
-    <!-- COL 2 -->
-
     <section class="column">
-
-      <!-- <div class="section-number green">
-        02
-      </div> -->
 
       <h2 class="title">
         Quem já confia
@@ -146,20 +125,18 @@
         Executamos estratégias de marketing digital para franquias e operações relevantes do segmento fitness premium.
       </p>
 
-      <!-- LOGOS -->
-
       <div class="logos">
 
         <div class="logo">
-          <img src="logo-action.svg">
+          <img src="/prospect/sceltaacademia/proposta/logo-action.svg" alt="Action 360">
         </div>
 
         <div class="logo">
-          <img src="logo-gavioes.webp">
+          <img src="/prospect/sceltaacademia/proposta/logo-gavioes.webp" alt="Gaviões Academia">
         </div>
 
         <div class="logo">
-          <img src="logo-bodytech.svg">
+          <img src="/prospect/sceltaacademia/proposta/logo-bodytech.svg" alt="Bodytech">
         </div>
 
         <div class="logo">
@@ -169,20 +146,14 @@
         </div>
 
         <div class="logo full">
-          <img src="logo-vidya.svg">
+          <img src="/prospect/sceltaacademia/proposta/logo-vidya.svg" alt="Vidya Studio Fit">
         </div>
 
       </div>
 
     </section>
 
-    <!-- COL 3 -->
-
     <section class="column">
-
-      <!-- <div class="section-number orange">
-        03
-      </div> -->
 
       <h2 class="title orange-title">
         Investimento
@@ -198,7 +169,6 @@
       <div class="investment-price">
 
         <small>R$</small>
-
         <span>16.500</span>
 
       </div>
@@ -214,13 +184,9 @@
       <div class="checklist">
 
         <div>Estratégia e posicionamento</div>
-
         <div>Direção criativa</div>
-
         <div>Gestão de tráfego e campanhas</div>
-
         <div>Planejamento de conteúdo</div>
-
         <div>Relatórios e otimização contínua</div>
 
       </div>
@@ -233,8 +199,6 @@
 
   </main>
 
-  <!-- FOOTER -->
-
   <footer class="footer">
     Estratégia • Criatividade • Performance • Resultados
   </footer>
@@ -242,15 +206,11 @@
 </div>
 
 <script>
-
 const toggle = document.getElementById('theme-toggle');
 
 toggle.addEventListener('click', () => {
-
   document.body.classList.toggle('light');
-
 });
-
 </script>
 
 </body>
